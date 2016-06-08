@@ -1,0 +1,78 @@
+﻿<Window x:Class="Crm.Client.Wpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Contoso Product Management"
+        Height="265"
+        Width="600">
+    <Border>
+        <Grid Margin="20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="2*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Column="0"
+                        Grid.Row="0"
+                        Grid.ColumnSpan="2">
+                <Label Content="Create new product"
+                       FontSize="18"
+                       FontWeight="Bold"></Label>
+                <Border Height="1"
+                        Background="#373737"
+                        BorderThickness="0"></Border>
+            </StackPanel>
+
+            <Label Grid.Column="0"
+                   Grid.Row="1"
+                   Content="Product name"
+                   FontSize="16"
+                   VerticalAlignment="Center"></Label>
+            <TextBox Grid.Column="1"
+                     Grid.Row="1"
+                     Name="TbProductName"
+                     Margin="2"
+                     VerticalContentAlignment="Center"
+                     Padding="5, 2" FontSize="16"></TextBox>
+
+            <Label Grid.Column="0"
+                   Grid.Row="2"
+                   Content="Product price (int)"
+                   FontSize="16"
+                   VerticalAlignment="Center"></Label>
+            <TextBox Grid.Column="1"
+                     Grid.Row="2"
+                     Name="TbProductPrice"
+                     Margin="2"
+                     HorizontalContentAlignment="Right"
+                     VerticalContentAlignment="Center"
+                     Padding="5, 2" FontSize="16"></TextBox>
+
+            <StackPanel Grid.Column="0"
+                        Grid.Row="3"
+                        Grid.ColumnSpan="2"
+                        Margin="0,5,0,0">
+                <Border Height="1"
+                        Background="#373737"
+                        BorderThickness="0"></Border>
+                <Button Name="BtnSubmit"
+                        Content="Save"
+                        FontSize="18"
+                        Width="80"
+                        Margin="0,5,0,0"
+                        Padding="5"
+                        HorizontalAlignment="Right"
+                        Click="BtnSubmit_Click"></Button>
+            </StackPanel>
+
+        </Grid>
+    </Border>
+</Window>

@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Shared.ViewModels.ProductViewModel>
+
+@{
+    ViewBag.Title = "Home Page";
+
+}
+
+<div class="container" style="margin-top: 50px;">
+
+    <fieldset>
+        <legend>Products</legend>
+        <table style="width: 100%;" cellpadding="5">
+
+            @foreach (var p in Model)
+            {
+                <tr>
+                    <td style="width: 220px;">@p.Name</td>
+                    <td>€ @p.Price</td>
+                    <td style="width: 100px;">
+                        @Html.ActionLink("Buy", "Buy", new {id = p.Id}, new {@class = "btn btn-default"})
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </fieldset>
+
+</div>
+
+@section scripts {
+    <script>
+        $(function () {
+
+            $.connection.hub.logging = true;
+
+            $.connection.hub.url = "http://localhost:3333/signalr";
+            var hub = $.connection.websiteHub;
+
+            hub.client.orderStateChanged = function (orderId, state) {
+                toastr.info('Order: <b>' + orderId + '</b><br/>State: <b>' + state + '</b>');
+            };
+
+            hub.client.test = function (message) {
+                console.log(message);
+                toastr.info('Test');
+            };
+
+            $.connection.hub.start().done(function () {
+                console.log('hub started...');
+            });
+
+        });
+    </script>
+}

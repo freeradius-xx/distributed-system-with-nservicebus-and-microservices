@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Shared.ViewModels.OrderViewModel>
+
+@{
+    ViewBag.Title = "Orders";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container" style="margin-top: 50px;">
+
+    <fieldset>
+        <legend>Orders</legend>
+        <table style="width: 100%;" cellpadding="5">
+            <tr>
+                <th>
+                    Order Id
+                </th>
+                <th>
+                    Product Id
+                </th>
+                @*<th>
+                        Customer Id
+                    </th>*@
+                <th style="width: 120px; text-align: center;">
+                    Current state
+                </th>
+            </tr>
+            @foreach (var o in Model)
+            {
+                <tr>
+                    <td style="width: 350px;">
+                        @o.OrderId
+                    </td>
+                    <td>
+                        @o.ProductId
+                    </td>
+                    @*<td>
+                            @o.CustomerId
+                        </td>*@
+                    <td style="text-align: center;">
+                        <span style="color: red;">@o.OrderState.ToString()</span>
+                    </td>
+                </tr>
+            }
+        </table>
+    </fieldset>
+
+</div>
+
+@section scripts {
+    <script>
+        $(function () {
+
+            $.connection.hub.logging = true;
+
+            $.connection.hub.url = "http://localhost:3333/signalr";
+            var hub = $.connection.websiteHub;
+
+            hub.client.orderStateChanged = function (orderId, state) {
+                toastr.info('Order: <b>' + orderId + '</b><br/>State: <b>' + state + '</b>');
+                setTimeout(function () {
+                    window.location.reload(true);
+                }, 3100);
+            };
+
+            hub.client.test = function (message) {
+                console.log(message);
+                toastr.info('Test');
+            };
+
+            $.connection.hub.start().done(function () {
+                console.log('hub started...');
+            });
+
+        });
+    </script>
+}
