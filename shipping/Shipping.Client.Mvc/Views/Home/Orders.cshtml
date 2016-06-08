@@ -45,7 +45,7 @@
                             @o.OrderState.ToString()
                         </td>
                         <td>
-                            @Html.ActionLink("Shipped", "OrderShipped", new { orderId = o.OrderId }, new { @class = "btn btn-default" })
+                            @Html.ActionLink("Shipp the order", "OrderShipped", new { orderId = o.OrderId }, new { @class = "btn btn-default" })
                         </td>
                     </tr>
                 }
