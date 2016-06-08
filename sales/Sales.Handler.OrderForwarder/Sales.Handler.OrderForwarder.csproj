@@ -46,14 +46,6 @@
       <HintPath>..\packages\NServiceBus.Host.5.0.0\lib\net45\NServiceBus.Host.exe</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Shared.Commands, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Sales.Client.Mvc\Bin\Shared.Commands.dll</HintPath>
-    </Reference>
-    <Reference Include="Shared.ViewModels, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Sales.Client.Mvc\Bin\Shared.ViewModels.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -74,6 +66,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\shared\Shared.Commands\Shared.Commands.csproj">
+      <Project>{2a4e4232-4ae2-4977-8d70-d61a121552c4}</Project>
+      <Name>Shared.Commands</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\shared\Shared.Configuration\Shared.Configuration.csproj">
       <Project>{35de831c-6403-4a80-8f51-63af3e8cb6cb}</Project>
       <Name>Shared.Configuration</Name>
@@ -85,6 +81,10 @@
     <ProjectReference Include="..\..\shared\Shared.OrderRepository\Shared.OrderRepository.csproj">
       <Project>{2b26ba10-b7b4-4d2a-8abe-07f2fc52aa4a}</Project>
       <Name>Shared.OrderRepository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\shared\Shared.ViewModels\Shared.ViewModels.csproj">
+      <Project>{bcb5c494-40b4-4570-a9d7-b76385930173}</Project>
+      <Name>Shared.ViewModels</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
