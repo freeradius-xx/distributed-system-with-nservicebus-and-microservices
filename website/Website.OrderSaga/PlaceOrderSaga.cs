@@ -13,6 +13,21 @@ namespace Website.OrderSaga
         IHandleMessages<OrderAcceptedEvent>,
         IHandleMessages<OrderShippedEvent>
     {
+        #region Fields
+
+        //private readonly SagaRepository _sagaRepositoty;
+
+        #endregion
+
+        #region C-Tor
+
+        public PlaceOrderSaga()
+        {
+            
+        }
+
+        #endregion
+
         #region Configure Saga
 
         protected override void ConfigureHowToFindSaga(SagaPropertyMapper<PlaceOrderSagaData> mapper)
