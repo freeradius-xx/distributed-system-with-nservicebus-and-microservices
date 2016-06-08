@@ -1,12 +1,12 @@
 ﻿using System;
 using Microsoft.AspNet.SignalR.Client.Hubs;
 using NServiceBus;
-using Shared.Events;
+using Shared.Messages;
 using Shared.OrderRepository;
 
 namespace Website.Handler.AcceptOrder
 {
-    public class AcceptOrderHandler : IHandleMessages<OrderAcceptedEvent>
+    public class AcceptOrderHandler : IHandleMessages<OrderAcceptedMessage>
     {
         #region Fields
 
@@ -25,7 +25,7 @@ namespace Website.Handler.AcceptOrder
 
         #region IHandleMessage implementation
 
-        public void Handle(OrderAcceptedEvent message)
+        public void Handle(OrderAcceptedMessage message)
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine();

@@ -106,6 +106,10 @@
       <Project>{5a7d6192-598a-4a92-8099-a06d05eaa2cb}</Project>
       <Name>Shared.Events</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\shared\Shared.Messages\Shared.Messages.csproj">
+      <Project>{4EBB3606-6B97-47CF-9B72-EB3960145AD1}</Project>
+      <Name>Shared.Messages</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\shared\Shared.OrderRepository\Shared.OrderRepository.csproj">
       <Project>{2b26ba10-b7b4-4d2a-8abe-07f2fc52aa4a}</Project>
       <Name>Shared.OrderRepository</Name>

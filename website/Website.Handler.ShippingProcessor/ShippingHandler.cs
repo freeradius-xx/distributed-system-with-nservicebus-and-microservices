@@ -1,12 +1,12 @@
 ﻿using System;
 using Microsoft.AspNet.SignalR.Client.Hubs;
 using NServiceBus;
-using Shared.Events;
+using Shared.Messages;
 using Shared.OrderRepository;
 
 namespace Website.Handler.ShippingProcessor
 {
-    public class ShippingHandler : IHandleMessages<OrderShippedEvent>
+    public class ShippingHandler : IHandleMessages<OrderShippedMessage>
     {
         #region Fields
 
@@ -25,7 +25,7 @@ namespace Website.Handler.ShippingProcessor
 
         #region IHandleMessage implementation
 
-        public void Handle(OrderShippedEvent message)
+        public void Handle(OrderShippedMessage message)
         {
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine();

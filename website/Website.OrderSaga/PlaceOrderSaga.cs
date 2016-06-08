@@ -4,13 +4,13 @@ using NServiceBus.Saga;
 using Shared.Commands;
 using Shared.Events;
 using Shared.Messages;
-using Shared.OrderRepository;
 using Shared.ViewModels;
 
 namespace Website.OrderSaga
 {
     public class PlaceOrderSaga : Saga<PlaceOrderSagaData>,
         IAmStartedByMessages<ProcessOrderCommand>,
+        IHandleMessages<OrderAcceptedEvent>,
         IHandleMessages<OrderShippedEvent>
     {
         #region Configure Saga
@@ -18,6 +18,8 @@ namespace Website.OrderSaga
         protected override void ConfigureHowToFindSaga(SagaPropertyMapper<PlaceOrderSagaData> mapper)
         {
             mapper.ConfigureMapping<ProcessOrderCommand>(o => o.OrderId).ToSaga(s => s.OrderId);
+            mapper.ConfigureMapping<OrderAcceptedEvent>(o => o.OrderId).ToSaga(s => s.OrderId);
+            mapper.ConfigureMapping<OrderShippedEvent>(o => o.OrderId).ToSaga(s => s.OrderId);
         }
 
         #endregion
@@ -28,7 +30,8 @@ namespace Website.OrderSaga
         {
             Console.WriteLine();
             Console.WriteLine("-----------------------------------");
-            Console.WriteLine("Website Saga: processing order '{0}' to AcceptOrderHandler of the website...", message.OrderId);
+            Console.WriteLine(DateTime.Now);
+            Console.WriteLine("Processing order '{0}' to AcceptOrderHandler of the website...", message.OrderId);
 
             this.Data.OrderId = message.OrderId;
             this.Data.Customerid = message.CustomerId;
@@ -37,7 +40,8 @@ namespace Website.OrderSaga
             this.Data.ProductPrice = message.ProductPrice;
 
             Console.WriteLine();
-            Console.WriteLine("Website Saga: adding order '{0}' to the db...", message.OrderId);
+            Console.WriteLine(DateTime.Now);
+            Console.WriteLine("Adding new order '{0}' to the db...", message.OrderId);
 
             // save the order into the db
             this.Bus.Send(
@@ -50,7 +54,8 @@ namespace Website.OrderSaga
                 });
 
             Console.WriteLine();
-            Console.WriteLine("Website Saga: processing order '{0}' to the SALES...", message.OrderId);
+            Console.WriteLine(DateTime.Now);
+            Console.WriteLine("Processing order '{0}' to the SALES...", message.OrderId);
 
             // remote message to sales dept.
             this.Bus.Publish<OrderSentToSalesEvent>(
@@ -66,13 +71,40 @@ namespace Website.OrderSaga
             Console.WriteLine();
         }
 
+        public void Handle(OrderAcceptedEvent message)
+        {
+            Console.WriteLine();
+            Console.WriteLine("-----------------------------------");
+            Console.WriteLine(DateTime.Now);
+            Console.WriteLine("Handling OrderAcceptedEvent '{0}'...", message.OrderId);
+            Console.WriteLine("-----------------------------------");
+            Console.WriteLine();
+
+            this.Bus.Send(
+                new OrderAcceptedMessage
+                {
+                    OrderId = message.OrderId,
+                    OrderState = message.State
+                });
+        }
+
         public void Handle(OrderShippedEvent message)
         {
             Console.WriteLine();
             Console.WriteLine("-----------------------------------");
-            Console.WriteLine("Website Saga: handling order shipped event '{0}'...", message.OrderId);
+            Console.WriteLine(DateTime.Now);
+            Console.WriteLine("Handling OrderShippedEvent '{0}'...", message.OrderId);
             Console.WriteLine("-----------------------------------");
             Console.WriteLine();
+
+            this.Bus.Send(
+                new OrderShippedMessage
+                {
+                    OrderId = message.OrderId,
+                    OrderState = message.State
+                });
+
+            MarkAsComplete();
         }
 
         #endregion

@@ -41,6 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AddNewOrderMessage.cs" />
+    <Compile Include="OrderAcceptedMessage.cs" />
+    <Compile Include="OrderShippedMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
