@@ -34,6 +34,10 @@
       <HintPath>..\..\packages\NServiceBus.5.0.0\lib\net45\NServiceBus.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="NServiceBus.Host, Version=5.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\NServiceBus.Host.5.0.0\lib\net45\NServiceBus.Host.exe</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -46,12 +50,41 @@
   <ItemGroup>
     <Compile Include="EndpointConfig.cs" />
     <Compile Include="PlaceOrderSaga.cs" />
-    <Compile Include="PlaceOrderSagaData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\shared\Shared.Commands\Shared.Commands.csproj">
+      <Project>{2a4e4232-4ae2-4977-8d70-d61a121552c4}</Project>
+      <Name>Shared.Commands</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\shared\Shared.Configuration\Shared.Configuration.csproj">
+      <Project>{35de831c-6403-4a80-8f51-63af3e8cb6cb}</Project>
+      <Name>Shared.Configuration</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\shared\Shared.Events\Shared.Events.csproj">
+      <Project>{5a7d6192-598a-4a92-8099-a06d05eaa2cb}</Project>
+      <Name>Shared.Events</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\shared\Shared.Messages\Shared.Messages.csproj">
+      <Project>{4ebb3606-6b97-47cf-9b72-eb3960145ad1}</Project>
+      <Name>Shared.Messages</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\shared\Shared.ViewModels\Shared.ViewModels.csproj">
+      <Project>{BCB5C494-40B4-4570-A9D7-B76385930173}</Project>
+      <Name>Shared.ViewModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Website.Entities\Website.Entities.csproj">
+      <Project>{440ACD8F-8B3A-421F-B485-0F85EE91D268}</Project>
+      <Name>Website.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Website.Sagas.Repository\Website.Sagas.Repository.csproj">
+      <Project>{6E9B82A2-A8F9-4947-AAEC-E4F932828516}</Project>
+      <Name>Website.Sagas.Repository</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -61,4 +94,8 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <PropertyGroup>
+    <StartAction>Program</StartAction>
+    <StartProgram>$(ProjectDir)$(OutputPath)NServiceBus.Host.exe</StartProgram>
+  </PropertyGroup>
 </Project>

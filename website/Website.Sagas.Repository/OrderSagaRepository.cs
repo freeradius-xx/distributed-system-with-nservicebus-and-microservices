@@ -1,43 +1,58 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Website.Entities;
+using Website.SagaDb;
 
 namespace Website.Sagas.Repository
 {
-    class OrderSagaRepository
+    public class OrderSagaRepository
     {
         #region CRUD
 
-        //public IQueryable<ProductViewModel> GetProducts()
-        //{
-        //    using (var ctx = new ProductContext())
-        //    {
-        //        var products = ctx.Products.ToList();
-        //        var list = products.Select(p => new ProductViewModel
-        //        {
-        //            Name = p.Name,
-        //            Price = p.Price,
-        //            Id = p.ProductId
-        //        }).ToList();
-        //        return list.AsQueryable();
-        //    }
-        //}
+        public PlaceOrderSagaData GetOrder(Guid id)
+        {
+            using (var ctx = new OrderSagarContext())
+            {
+                var data = ctx.Orders.SingleOrDefault(o => o.OrderId == id);
+                return data;
+            }
+        }
 
-        //public void AddProduct(ProductViewModel vm)
-        //{
-        //    using (var ctx = new ProductContext())
-        //    {
-        //        ctx.Products.Add(
-        //            new Product
-        //            {
-        //                Price = vm.Price,
-        //                Name = vm.Name
-        //            });
-        //        ctx.SaveChanges();
-        //    }
-        //}
+        public void SaveOrder(PlaceOrderSagaData vm)
+        {
+            using (var ctx = new OrderSagarContext())
+            {
+                var data = ctx.Orders.SingleOrDefault(o => o.OrderId == vm.OrderId);
+                if (data != null)
+                {
+                    data.OrderId = vm.OrderId;
+                    data.Customerid = vm.Customerid;
+                    data.Id = vm.Id;
+                    data.OrderState = vm.OrderState;
+                    data.OriginalMessageId = vm.OriginalMessageId;
+                    data.Originator = vm.Originator;
+                    data.ProductId = vm.ProductId;
+                    data.ProductPrice = vm.ProductPrice;
+                }
+                else
+                {
+                    data = new PlaceOrderSagaData
+                    {
+                        OrderId = vm.OrderId,
+                        Customerid = vm.Customerid,
+                        Id = vm.Id,
+                        OrderState = vm.OrderState,
+                        OriginalMessageId = vm.OriginalMessageId,
+                        Originator = vm.Originator,
+                        ProductId = vm.ProductId,
+                        ProductPrice = vm.ProductPrice
+                    };
+                    ctx.Orders.Add(data);
+                }
+
+                ctx.SaveChanges();
+            }
+        }
 
         #endregion
     }

@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{98FD697F-8D97-44B2-BC47-5E82D4A6F4E6}</ProjectGuid>
+    <ProjectGuid>{440ACD8F-8B3A-421F-B485-0F85EE91D268}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Website.OrderSaga</RootNamespace>
-    <AssemblyName>Website.OrderSaga</AssemblyName>
+    <RootNamespace>Website.Entities</RootNamespace>
+    <AssemblyName>Website.Entities</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -34,10 +34,6 @@
       <HintPath>..\packages\NServiceBus.5.0.0\lib\net45\NServiceBus.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NServiceBus.Host, Version=5.0.0.0, Culture=neutral, PublicKeyToken=9fc386479f8a226c, processorArchitecture=MSIL">
-      <HintPath>..\packages\NServiceBus.Host.5.0.0\lib\net45\NServiceBus.Host.exe</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -48,38 +44,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EndpointConfig.cs" />
-    <Compile Include="PlaceOrderSaga.cs" />
     <Compile Include="PlaceOrderSagaData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\shared\Shared.Commands\Shared.Commands.csproj">
-      <Project>{2a4e4232-4ae2-4977-8d70-d61a121552c4}</Project>
-      <Name>Shared.Commands</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\shared\Shared.Configuration\Shared.Configuration.csproj">
-      <Project>{35de831c-6403-4a80-8f51-63af3e8cb6cb}</Project>
-      <Name>Shared.Configuration</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\shared\Shared.Events\Shared.Events.csproj">
-      <Project>{5a7d6192-598a-4a92-8099-a06d05eaa2cb}</Project>
-      <Name>Shared.Events</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\shared\Shared.Messages\Shared.Messages.csproj">
-      <Project>{4ebb3606-6b97-47cf-9b72-eb3960145ad1}</Project>
-      <Name>Shared.Messages</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\shared\Shared.OrderRepository\Shared.OrderRepository.csproj">
-      <Project>{2b26ba10-b7b4-4d2a-8abe-07f2fc52aa4a}</Project>
-      <Name>Shared.OrderRepository</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\shared\Shared.ViewModels\Shared.ViewModels.csproj">
-      <Project>{bcb5c494-40b4-4570-a9d7-b76385930173}</Project>
+    <ProjectReference Include="..\shared\Shared.ViewModels\Shared.ViewModels.csproj">
+      <Project>{BCB5C494-40B4-4570-A9D7-B76385930173}</Project>
       <Name>Shared.ViewModels</Name>
     </ProjectReference>
   </ItemGroup>
@@ -91,8 +64,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <PropertyGroup>
-    <StartAction>Program</StartAction>
-    <StartProgram>$(ProjectDir)$(OutputPath)NServiceBus.Host.exe</StartProgram>
-  </PropertyGroup>
 </Project>

@@ -2,7 +2,7 @@
 using NServiceBus.Saga;
 using Shared.ViewModels;
 
-namespace Website.OrderSaga
+namespace Website.Entities
 {
     public class PlaceOrderSagaData : IContainSagaData
     {

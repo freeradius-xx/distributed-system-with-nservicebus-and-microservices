@@ -1,12 +1,12 @@
-﻿//using System.Data.Entity;
+﻿using System.Data.Entity;
 
-//namespace Shared.OrderDb
-//{
-//    public class Initializer : DropCreateDatabaseIfModelChanges<OrderContext>
-//    {
-//        protected override void Seed(OrderContext context)
-//        {
-//            base.Seed(context);
-//        }
-//    }
-//}
+namespace Website.SagaDb
+{
+    public class Initializer : DropCreateDatabaseIfModelChanges<OrderSagarContext>
+    {
+        protected override void Seed(OrderSagarContext context)
+        {
+            base.Seed(context);
+        }
+    }
+}
