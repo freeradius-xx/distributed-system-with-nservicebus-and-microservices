@@ -1,17 +1,18 @@
 ﻿using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using Sales.Entities;
 
-namespace Shared.ProductDb
+namespace Sales.Db
 {
-    public class ProductContext : DbContext
+    public class SalesContext : DbContext
     {
-        public ProductContext()
+        public SalesContext()
             : base("Name=XxxConnectionString")
         {
             Database.SetInitializer(new Initializer());
         }
 
-        public DbSet<Product> Products { get; set; }
+        public DbSet<SalesOrderData> Orders { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

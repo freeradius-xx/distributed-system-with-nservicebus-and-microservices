@@ -114,6 +114,10 @@
       <Project>{2b26ba10-b7b4-4d2a-8abe-07f2fc52aa4a}</Project>
       <Name>Shared.OrderRepository</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\shared\Shared.ViewModels\Shared.ViewModels.csproj">
+      <Project>{BCB5C494-40B4-4570-A9D7-B76385930173}</Project>
+      <Name>Shared.ViewModels</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

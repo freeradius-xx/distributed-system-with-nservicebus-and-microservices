@@ -1,10 +1,10 @@
 ﻿using System;
-using System.Linq;
 using NServiceBus;
 using Shared.Commands;
 using Shared.Events;
-using Shared.OrderRepository;
 using Shared.ViewModels;
+using Shipping.Entities;
+using Shipping.Repository;
 
 namespace Shipping.Handler.ShippingProcessor
 {
@@ -13,7 +13,7 @@ namespace Shipping.Handler.ShippingProcessor
         #region Fields
 
         private readonly IBus _bus;
-        private readonly OrderRepository _repository;
+        private readonly ShippingOrderRepository _repository;
 
         #endregion
 
@@ -22,7 +22,7 @@ namespace Shipping.Handler.ShippingProcessor
         public ShippingHandler(IBus bus)
         {
             this._bus = bus;
-            this._repository = new OrderRepository();
+            this._repository = new ShippingOrderRepository();
         }
 
         #endregion
@@ -38,7 +38,12 @@ namespace Shipping.Handler.ShippingProcessor
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.White;
 
-            this.UpdateOrderState(message.OrderId);
+            this._repository.SaveState(
+                new ShippingOrderData
+                {
+                    OrderState = message.State,
+                    OrderId = message.OrderId
+                });
 
             this._bus.Publish<OrderShippedEvent>(
                 e =>
@@ -46,18 +51,6 @@ namespace Shipping.Handler.ShippingProcessor
                     e.OrderId = message.OrderId;
                     e.State = OrderState.Shipped;
                 });
-        }
-
-        #endregion
-
-        #region Helpers
-
-        private void UpdateOrderState(Guid orderId)
-        {
-            var order = this._repository.GetOrders().ToList().SingleOrDefault(o => o.OrderId == orderId);
-            if (order == null) return;
-            order.OrderState = OrderState.Shipped;
-            this._repository.Update(order);
         }
 
         #endregion

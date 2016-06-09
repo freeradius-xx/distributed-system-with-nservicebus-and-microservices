@@ -78,13 +78,17 @@
       <Project>{5a7d6192-598a-4a92-8099-a06d05eaa2cb}</Project>
       <Name>Shared.Events</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\shared\Shared.OrderRepository\Shared.OrderRepository.csproj">
-      <Project>{2b26ba10-b7b4-4d2a-8abe-07f2fc52aa4a}</Project>
-      <Name>Shared.OrderRepository</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\shared\Shared.ViewModels\Shared.ViewModels.csproj">
       <Project>{bcb5c494-40b4-4570-a9d7-b76385930173}</Project>
       <Name>Shared.ViewModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shipping.Entities\Shipping.Entities.csproj">
+      <Project>{a48ff928-b1d4-4fe6-96d9-66fd566021fb}</Project>
+      <Name>Shipping.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shipping.Repository\Shipping.Repository.csproj">
+      <Project>{3af84fe7-fce5-4761-be2b-bf086a212e3c}</Project>
+      <Name>Shipping.Repository</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

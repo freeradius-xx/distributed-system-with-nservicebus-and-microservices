@@ -106,9 +106,17 @@
       <Project>{5a7d6192-598a-4a92-8099-a06d05eaa2cb}</Project>
       <Name>Shared.Events</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\shared\Shared.OrderRepository\Shared.OrderRepository.csproj">
-      <Project>{2b26ba10-b7b4-4d2a-8abe-07f2fc52aa4a}</Project>
-      <Name>Shared.OrderRepository</Name>
+    <ProjectReference Include="..\..\shared\Shared.ViewModels\Shared.ViewModels.csproj">
+      <Project>{BCB5C494-40B4-4570-A9D7-B76385930173}</Project>
+      <Name>Shared.ViewModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sales.Entities\Sales.Entities.csproj">
+      <Project>{3e763368-6a3c-41bd-8633-24393aaaca8f}</Project>
+      <Name>Sales.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sales.Repository\Sales.Repository.csproj">
+      <Project>{cd06e31a-36db-4345-98b2-78f1b6d173ff}</Project>
+      <Name>Sales.Repository</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

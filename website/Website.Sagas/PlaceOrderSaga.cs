@@ -17,7 +17,7 @@ namespace Website.Sagas
     {
         #region Fields
 
-        private readonly OrderSagaRepository _orderSagaepositoty;
+        private readonly OrderSagaRepository _orderSagaRepository;
 
         #endregion
 
@@ -25,7 +25,7 @@ namespace Website.Sagas
 
         public PlaceOrderSaga()
         {
-            this._orderSagaepositoty = new OrderSagaRepository();
+            this._orderSagaRepository = new OrderSagaRepository();
         }
 
         #endregion
@@ -49,7 +49,7 @@ namespace Website.Sagas
             // and if saga allready done this step => saga repository
             // ...
 
-            var currentState = this._orderSagaepositoty.GetSagaState(message.OrderId);
+            //var currentState = this._orderSagaRepository.GetSagaState(message.OrderId);
             var newState = message.State;
 
             Console.WriteLine();
@@ -96,7 +96,7 @@ namespace Website.Sagas
             Console.WriteLine();
 
             // save current saga state
-            this._orderSagaepositoty.SaveSagaState(this.Data);
+            this._orderSagaRepository.SaveSagaState(this.Data);
         }
 
         public void Handle(OrderAcceptedEvent message)
@@ -105,7 +105,7 @@ namespace Website.Sagas
             // and if saga allready done this step => saga repository
             // ...
 
-            var currentState = this._orderSagaepositoty.GetSagaState(message.OrderId);
+            var currentState = this._orderSagaRepository.GetSagaState(message.OrderId);
             var newState = message.State;
 
             Console.WriteLine();
@@ -125,7 +125,7 @@ namespace Website.Sagas
             // save current saga state
             this.Data.OrderState = message.State;
 
-            this._orderSagaepositoty.SaveSagaState(this.Data);
+            this._orderSagaRepository.SaveSagaState(this.Data);
         }
 
         public void Handle(OrderShippedEvent message)
@@ -134,7 +134,7 @@ namespace Website.Sagas
             // and if saga allready done this step => saga repository
             // ...
 
-            var currentState = this._orderSagaepositoty.GetSagaState(message.OrderId);
+            var currentState = this._orderSagaRepository.GetSagaState(message.OrderId);
             var newState = message.State;
 
             Console.WriteLine();
@@ -154,7 +154,7 @@ namespace Website.Sagas
             // save current saga state
             this.Data.OrderState = message.State;
 
-            this._orderSagaepositoty.SaveSagaState(this.Data);
+            this._orderSagaRepository.SaveSagaState(this.Data);
 
             MarkAsComplete();
         }

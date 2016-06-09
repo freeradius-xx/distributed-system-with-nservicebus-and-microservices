@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.AspNet.SignalR.Client.Hubs;
 using NServiceBus;
 using Shared.Messages;
 using Shared.OrderRepository;
+using Shared.ViewModels;
 
 namespace Website.Handler.AcceptOrder
 {

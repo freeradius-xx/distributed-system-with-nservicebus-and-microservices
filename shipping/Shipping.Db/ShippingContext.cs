@@ -1,17 +1,18 @@
 ﻿using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
+using Shipping.Entities;
 
-namespace Shared.ProductDb
+namespace Shipping.Db
 {
-    public class ProductContext : DbContext
+    public class ShippingContext : DbContext
     {
-        public ProductContext()
+        public ShippingContext()
             : base("Name=XxxConnectionString")
         {
             Database.SetInitializer(new Initializer());
         }
 
-        public DbSet<Product> Products { get; set; }
+        public DbSet<ShippingOrderData> Orders { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

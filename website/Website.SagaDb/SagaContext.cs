@@ -3,9 +3,9 @@ using Website.Entities;
 
 namespace Website.SagaDb
 {
-    public class OrderSagarContext : DbContext
+    public class SagaContext : DbContext
     {
-        public OrderSagarContext()
+        public SagaContext()
             : base("Name=XxxConnectionString")
         {
             Database.SetInitializer(new Initializer());

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using NServiceBus.Saga;
 using Shared.ViewModels;
 
@@ -7,6 +8,7 @@ namespace Website.Entities
     public class PlaceOrderSagaData : IContainSagaData
     {
         [Unique]
+        [Key]
         public Guid OrderId { get; set; }
         public Guid Customerid { get; set; }
         public int ProductId { get; set; }

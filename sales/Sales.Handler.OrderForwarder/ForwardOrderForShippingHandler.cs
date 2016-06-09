@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Linq;
 using NServiceBus;
+using Sales.Entities;
+using Sales.Repository;
 using Shared.Commands;
 using Shared.Events;
-using Shared.OrderRepository;
 using Shared.ViewModels;
 
 namespace Sales.Handler.OrderForwarder
@@ -13,7 +13,7 @@ namespace Sales.Handler.OrderForwarder
         #region Fields
 
         private readonly IBus _bus;
-        private readonly OrderRepository _repository;
+        private readonly OrderSalesRepository _repository;
 
         #endregion
 
@@ -22,7 +22,7 @@ namespace Sales.Handler.OrderForwarder
         public ForwardOrderForShippingHandler(IBus bus)
         {
             this._bus = bus;
-            this._repository = new OrderRepository();
+            this._repository = new OrderSalesRepository();
         }
 
         #endregion
@@ -38,7 +38,13 @@ namespace Sales.Handler.OrderForwarder
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.White;
 
-            this.UpdateOrderState(message.OrderId);
+            // save the current state
+            this._repository.SaveState(
+                new SalesOrderData
+                {
+                    OrderState = message.State,
+                    OrderId = message.OrderId
+                });
 
             this._bus.Publish<OrderAcceptedEvent>(
                 e =>
@@ -46,18 +52,6 @@ namespace Sales.Handler.OrderForwarder
                     e.OrderId = message.OrderId;
                     e.State = OrderState.AcceptedBySales;
                 });
-        }
-
-        #endregion
-
-        #region Helpers
-
-        private void UpdateOrderState(Guid orderId)
-        {
-            var order = this._repository.GetOrders().ToList().SingleOrDefault(o => o.OrderId == orderId);
-            if (order == null) return;
-            order.OrderState = OrderState.AcceptedBySales;
-            this._repository.Update(order);
         }
 
         #endregion

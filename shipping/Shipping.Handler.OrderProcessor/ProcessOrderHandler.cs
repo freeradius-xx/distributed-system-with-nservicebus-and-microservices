@@ -2,7 +2,8 @@
 using Microsoft.AspNet.SignalR.Client.Hubs;
 using NServiceBus;
 using Shared.Events;
-using Shared.OrderRepository;
+using Shipping.Entities;
+using Shipping.Repository;
 
 namespace Shipping.Handler.OrderProcessor
 {
@@ -10,7 +11,7 @@ namespace Shipping.Handler.OrderProcessor
     {
         #region Fields
 
-        private readonly OrderRepository _repository;
+        private readonly ShippingOrderRepository _repository;
 
         #endregion
 
@@ -18,7 +19,7 @@ namespace Shipping.Handler.OrderProcessor
 
         public ProcessOrderHandler()
         {
-            this._repository = new OrderRepository();
+            this._repository = new ShippingOrderRepository();
         }
 
         #endregion
@@ -33,6 +34,13 @@ namespace Shipping.Handler.OrderProcessor
             Console.WriteLine("Order {0} in process...", message.OrderId);
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.White;
+
+            this._repository.SaveState(
+                new ShippingOrderData
+                {
+                    OrderState = message.State,
+                    OrderId = message.OrderId
+                });
 
             this.NotifyClientAboutOrder(message.OrderId);
         }

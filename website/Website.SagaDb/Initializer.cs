@@ -2,9 +2,9 @@
 
 namespace Website.SagaDb
 {
-    public class Initializer : DropCreateDatabaseIfModelChanges<OrderSagarContext>
+    public class Initializer : DropCreateDatabaseIfModelChanges<SagaContext>
     {
-        protected override void Seed(OrderSagarContext context)
+        protected override void Seed(SagaContext context)
         {
             base.Seed(context);
         }

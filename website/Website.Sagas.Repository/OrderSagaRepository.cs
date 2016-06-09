@@ -11,15 +11,16 @@ namespace Website.Sagas.Repository
 
         public PlaceOrderSagaData GetSagaState(Guid id)
         {
-            using (var ctx = new OrderSagarContext())
+            using (var ctx = new SagaContext())
             {
-                return ctx.Orders.SingleOrDefault(o => o.OrderId == id);
+                var model = ctx.Orders.SingleOrDefault(o => o.OrderId == id);
+                return model;
             }
         }
 
         public void SaveSagaState(PlaceOrderSagaData vm)
         {
-            using (var ctx = new OrderSagarContext())
+            using (var ctx = new SagaContext())
             {
                 var data = ctx.Orders.SingleOrDefault(o => o.OrderId == vm.OrderId);
                 if (data != null)

@@ -1,14 +1,21 @@
-﻿using NServiceBus;
+﻿using System.Linq;
+using NServiceBus;
 using Shared.Messages;
 using Shared.ViewModels;
 
 namespace Website.Handler.OrderRepository
 {
-    public class RepositoryHandler : IHandleMessages<AddNewOrderMessage>
+    /// <summary>
+    /// here we should consider using an event store
+    /// </summary>
+    public class RepositoryHandler : 
+        IHandleMessages<AddNewOrderMessage>,
+        IHandleMessages<OrderAcceptedMessage>,
+        IHandleMessages<OrderShippedMessage>
     {
         #region Fields
 
-        private readonly Shared.OrderRepository.OrderRepository _orderRepository;
+        private readonly Shared.OrderRepository.OrderRepository _repository;
 
         #endregion
 
@@ -16,7 +23,7 @@ namespace Website.Handler.OrderRepository
 
         public RepositoryHandler()
         {
-            this._orderRepository = new Shared.OrderRepository.OrderRepository();
+            this._repository = new Shared.OrderRepository.OrderRepository();
         }
 
         #endregion
@@ -25,7 +32,7 @@ namespace Website.Handler.OrderRepository
 
         public void Handle(AddNewOrderMessage message)
         {
-            this._orderRepository.AddOrder(
+            this._repository.AddOrder(
                 new OrderViewModel
                 {
                     CustomerId = message.CustomerId,
@@ -35,6 +42,24 @@ namespace Website.Handler.OrderRepository
                 });
         }
 
+        public void Handle(OrderAcceptedMessage message)
+        {
+            this._repository.Update(
+                new OrderViewModel
+                {
+                    OrderState = message.OrderState
+                });
+        }
+
         #endregion
+
+        public void Handle(OrderShippedMessage message)
+        {
+            this._repository.Update(
+                new OrderViewModel
+                {
+                    OrderState = message.OrderState
+                });
+        }
     }
 }

@@ -1,8 +1,9 @@
 ﻿using System;
 using Microsoft.AspNet.SignalR.Client.Hubs;
 using NServiceBus;
+using Sales.Entities;
+using Sales.Repository;
 using Shared.Events;
-using Shared.OrderRepository;
 
 namespace Sales.Handler.OrderProcessor
 {
@@ -10,7 +11,7 @@ namespace Sales.Handler.OrderProcessor
     {
         #region Fields
 
-        private readonly OrderRepository _repository;
+        private readonly OrderSalesRepository _repository;
 
         #endregion
 
@@ -18,7 +19,7 @@ namespace Sales.Handler.OrderProcessor
 
         public ProcessOrderHandler()
         {
-            this._repository = new OrderRepository();
+            this._repository = new OrderSalesRepository();
         }
 
         #endregion
@@ -33,6 +34,14 @@ namespace Sales.Handler.OrderProcessor
             Console.WriteLine("Order {0} in process...", message.OrderId);
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.White;
+
+            // save the current state
+            this._repository.SaveState(
+                new SalesOrderData
+                {
+                    OrderState = message.State,
+                    OrderId = message.OrderId
+                });
 
             this.NotifyClientAboutOrder(message.OrderId);
         }

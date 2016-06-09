@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.AspNet.SignalR.Client.Hubs;
 using NServiceBus;
 using Shared.Messages;
 using Shared.OrderRepository;
+using Shared.ViewModels;
 
 namespace Website.Handler.ShippingProcessor
 {
@@ -34,6 +36,8 @@ namespace Website.Handler.ShippingProcessor
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.White;
 
+            this.UpdateOrder(message);
+
             this.NotifyClientAboutOrder(message.OrderId);
         }
 
@@ -48,6 +52,14 @@ namespace Website.Handler.ShippingProcessor
             connection.Start().Wait();
 
             hub.Invoke("OrderShipped", orderId).Wait();
+        }
+
+        private void UpdateOrder(OrderShippedMessage message)
+        {
+            var order = this._repository.GetOrders().ToList().SingleOrDefault(o => o.OrderId == message.OrderId);
+            if (order == null) return;
+            order.OrderState = OrderState.Shipped;
+            this._repository.Update(order);
         }
 
         #endregion
