@@ -51,7 +51,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\shared\Shared.ViewModels\Shared.ViewModels.csproj">
+    <ProjectReference Include="..\..\shared\Shared.ViewModels\Shared.ViewModels.csproj">
       <Project>{BCB5C494-40B4-4570-A9D7-B76385930173}</Project>
       <Name>Shared.ViewModels</Name>
     </ProjectReference>

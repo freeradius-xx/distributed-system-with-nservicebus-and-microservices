@@ -9,16 +9,15 @@ namespace Website.Sagas.Repository
     {
         #region CRUD
 
-        public PlaceOrderSagaData GetOrder(Guid id)
+        public PlaceOrderSagaData GetSagaState(Guid id)
         {
             using (var ctx = new OrderSagarContext())
             {
-                var data = ctx.Orders.SingleOrDefault(o => o.OrderId == id);
-                return data;
+                return ctx.Orders.SingleOrDefault(o => o.OrderId == id);
             }
         }
 
-        public void SaveOrder(PlaceOrderSagaData vm)
+        public void SaveSagaState(PlaceOrderSagaData vm)
         {
             using (var ctx = new OrderSagarContext())
             {

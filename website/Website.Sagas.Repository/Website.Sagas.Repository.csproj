@@ -65,8 +65,8 @@
       <Project>{BCB5C494-40B4-4570-A9D7-B76385930173}</Project>
       <Name>Shared.ViewModels</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\Website.Entities\Website.Entities.csproj">
-      <Project>{440ACD8F-8B3A-421F-B485-0F85EE91D268}</Project>
+    <ProjectReference Include="..\Website.Entities\Website.Entities.csproj">
+      <Project>{440acd8f-8b3a-421f-b485-0f85ee91d268}</Project>
       <Name>Website.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\Website.SagaDb\Website.SagaDb.csproj">
