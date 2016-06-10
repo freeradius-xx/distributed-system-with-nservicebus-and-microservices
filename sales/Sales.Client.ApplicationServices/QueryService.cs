@@ -1,5 +1,6 @@
-﻿using System.Linq;
-using Shared.OrderRepository;
+﻿using System.Collections.Generic;
+using System.Linq;
+using Sales.Repository;
 using Shared.ViewModels;
 
 namespace Sales.Client.ApplicationServices
@@ -8,7 +9,7 @@ namespace Sales.Client.ApplicationServices
     {
         #region Fields
 
-        private readonly OrderRepository _db;
+        private readonly OrderSalesRepository _repository;
 
         #endregion
 
@@ -16,7 +17,7 @@ namespace Sales.Client.ApplicationServices
 
         public QueryService()
         {
-            this._db = new OrderRepository();
+            this._repository = new OrderSalesRepository();
         }
 
         #endregion
@@ -25,7 +26,20 @@ namespace Sales.Client.ApplicationServices
 
         public IQueryable<OrderViewModel> GetOrders()
         {
-            return this._db.GetOrders().AsQueryable();
+            var model =  this._repository.GetState(OrderState.OrderPlaced);
+            var vm = new List<OrderViewModel>();
+            foreach (var o in model)
+            {
+                vm.Add(
+                    new OrderViewModel
+                    {
+                        OrderId = o.OrderId,
+                        OrderState = o.OrderState,
+                        CustomerId = o.CustomerId,
+                        ProductId = o.ProductId
+                    });
+            }
+            return vm.ToList().AsQueryable();
         }
 
         #endregion

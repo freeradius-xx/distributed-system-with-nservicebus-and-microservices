@@ -6,7 +6,7 @@ namespace Website.SagaDb
     public class SagaContext : DbContext
     {
         public SagaContext()
-            : base("Name=XxxConnectionString")
+            : base("Name=SagaConnectionString")
         {
             Database.SetInitializer(new Initializer());
         }

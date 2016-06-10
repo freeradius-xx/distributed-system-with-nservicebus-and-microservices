@@ -36,12 +36,22 @@ namespace Website.Handler.AcceptOrder
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.White;
 
+            this.UpdateOrder(message);
+
             this.NotifyClientAboutOrder(message.OrderId);
         }
 
         #endregion
 
         #region Helpers
+
+        private void UpdateOrder(OrderAcceptedMessage message)
+        {
+            var order = this._repository.GetOrders().ToList().SingleOrDefault(o => o.OrderId == message.OrderId);
+            if (order == null) return;
+            order.OrderState = OrderState.AcceptedBySales;
+            this._repository.Update(order);
+        }
 
         private void NotifyClientAboutOrder(Guid orderId)
         {

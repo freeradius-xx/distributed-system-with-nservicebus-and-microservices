@@ -1,6 +1,8 @@
-﻿using System.Linq;
-using Shared.OrderRepository;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Shared.ViewModels;
+using Shipping.Entities;
+using Shipping.Repository;
 
 namespace Shipping.Client.ApplicationServices
 {
@@ -8,7 +10,7 @@ namespace Shipping.Client.ApplicationServices
     {
         #region Fields
 
-        private readonly OrderRepository _db;
+        private readonly ShippingOrderRepository _repository;
 
         #endregion
 
@@ -16,16 +18,16 @@ namespace Shipping.Client.ApplicationServices
 
         public QueryService()
         {
-            this._db = new OrderRepository();
+            this._repository = new ShippingOrderRepository();
         }
 
         #endregion
 
         #region CRUD
 
-        public IQueryable<OrderViewModel> GetOrders()
+        public List<ShippingOrderData> GetOrders()
         {
-            return this._db.GetOrders().AsQueryable();
+            return this._repository.GetOrders(OrderState.AcceptedBySales).ToList();
         }
 
         #endregion

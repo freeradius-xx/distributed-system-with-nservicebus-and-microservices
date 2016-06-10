@@ -44,13 +44,17 @@
     <Compile Include="QueryService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\shared\Shared.OrderRepository\Shared.OrderRepository.csproj">
-      <Project>{2b26ba10-b7b4-4d2a-8abe-07f2fc52aa4a}</Project>
-      <Name>Shared.OrderRepository</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\shared\Shared.ViewModels\Shared.ViewModels.csproj">
       <Project>{bcb5c494-40b4-4570-a9d7-b76385930173}</Project>
       <Name>Shared.ViewModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sales.Entities\Sales.Entities.csproj">
+      <Project>{3e763368-6a3c-41bd-8633-24393aaaca8f}</Project>
+      <Name>Sales.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Sales.Repository\Sales.Repository.csproj">
+      <Project>{cd06e31a-36db-4345-98b2-78f1b6d173ff}</Project>
+      <Name>Sales.Repository</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

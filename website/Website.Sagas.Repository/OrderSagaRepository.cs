@@ -5,52 +5,68 @@ using Website.SagaDb;
 
 namespace Website.Sagas.Repository
 {
-    public class OrderSagaRepository
+    public class OrderSagaRepository : IDisposable
     {
+        #region Fields
+
+        private readonly SagaContext _ctx = new SagaContext();
+
+        #endregion
+
         #region CRUD
 
         public PlaceOrderSagaData GetSagaState(Guid id)
         {
-            using (var ctx = new SagaContext())
-            {
-                var model = ctx.Orders.SingleOrDefault(o => o.OrderId == id);
-                return model;
-            }
+            return this._ctx.Orders.SingleOrDefault(o => o.OrderId == id);
         }
 
         public void SaveSagaState(PlaceOrderSagaData vm)
         {
-            using (var ctx = new SagaContext())
+            var data = this._ctx.Orders.SingleOrDefault(o => o.OrderId == vm.OrderId);
+            if (data != null)
             {
-                var data = ctx.Orders.SingleOrDefault(o => o.OrderId == vm.OrderId);
-                if (data != null)
+                data.OrderId = vm.OrderId;
+                data.Customerid = vm.Customerid;
+                data.Id = vm.Id;
+                data.OrderState = vm.OrderState;
+                data.OriginalMessageId = vm.OriginalMessageId;
+                data.Originator = vm.Originator;
+                data.ProductId = vm.ProductId;
+                data.ProductPrice = vm.ProductPrice;
+            }
+            else
+            {
+                data = new PlaceOrderSagaData
                 {
-                    data.OrderId = vm.OrderId;
-                    data.Customerid = vm.Customerid;
-                    data.Id = vm.Id;
-                    data.OrderState = vm.OrderState;
-                    data.OriginalMessageId = vm.OriginalMessageId;
-                    data.Originator = vm.Originator;
-                    data.ProductId = vm.ProductId;
-                    data.ProductPrice = vm.ProductPrice;
-                }
-                else
-                {
-                    data = new PlaceOrderSagaData
-                    {
-                        OrderId = vm.OrderId,
-                        Customerid = vm.Customerid,
-                        Id = vm.Id,
-                        OrderState = vm.OrderState,
-                        OriginalMessageId = vm.OriginalMessageId,
-                        Originator = vm.Originator,
-                        ProductId = vm.ProductId,
-                        ProductPrice = vm.ProductPrice
-                    };
-                    ctx.Orders.Add(data);
-                }
+                    OrderId = vm.OrderId,
+                    Customerid = vm.Customerid,
+                    Id = vm.Id,
+                    OrderState = vm.OrderState,
+                    OriginalMessageId = vm.OriginalMessageId,
+                    Originator = vm.Originator,
+                    ProductId = vm.ProductId,
+                    ProductPrice = vm.ProductPrice
+                };
+                this._ctx.Orders.Add(data);
+            }
 
-                ctx.SaveChanges();
+            this._ctx.SaveChanges();
+        }
+
+        #endregion
+
+        #region IDisposable
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
             }
         }
 

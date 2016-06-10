@@ -6,7 +6,7 @@ namespace Shared.ProductDb
     public class ProductContext : DbContext
     {
         public ProductContext()
-            : base("Name=XxxConnectionString")
+            : base("Name=OnlineStoreConnectionString")
         {
             Database.SetInitializer(new Initializer());
         }

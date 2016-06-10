@@ -1,37 +1,57 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Shared.ProductDb;
 using Shared.ViewModels;
 
 namespace Shared.ProductRepository
 {
-    public class ProductRepository
+    public class ProductRepository : IDisposable
     {
+        #region Fields
+
+        private readonly ProductContext _ctx = new ProductContext();
+
+        #endregion
+
         #region CRUD
 
         public IQueryable<ProductViewModel> GetProducts()
         {
-            using (var ctx = new ProductContext())
+            var products = this._ctx.Products.ToList();
+            var list = products.Select(p => new ProductViewModel
             {
-                var products = ctx.Products.ToList();
-                var list = products.Select(p => new ProductViewModel
-                {
-                    Name = p.Name, Price = p.Price, Id = p.ProductId
-                }).ToList();
-                return list.AsQueryable();
-            }
+                Name = p.Name,
+                Price = p.Price,
+                Id = p.ProductId
+            }).ToList();
+            return list.AsQueryable();
         }
 
         public void AddProduct(ProductViewModel vm)
         {
-            using (var ctx = new ProductContext())
-            {
-                ctx.Products.Add(
+            this._ctx.Products.Add(
                     new Product
                     {
                         Price = vm.Price,
                         Name = vm.Name
                     });
-                ctx.SaveChanges();
+            this._ctx.SaveChanges();
+        }
+
+        #endregion
+
+        #region IDisposable
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
             }
         }
 

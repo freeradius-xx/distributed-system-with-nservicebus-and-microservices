@@ -5,7 +5,7 @@ namespace Shared.OrderDb
     public class OrderContext : DbContext
     {
         public OrderContext()
-            : base("Name=XxxConnectionString")
+            : base("Name=OnlineStoreConnectionString")
         {
             Database.SetInitializer(new Initializer());
         }

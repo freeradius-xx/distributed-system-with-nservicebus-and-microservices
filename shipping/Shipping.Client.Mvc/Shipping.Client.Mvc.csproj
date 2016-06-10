@@ -267,6 +267,10 @@
       <Project>{491a987e-f0c0-490e-b1ff-0593cb5c765d}</Project>
       <Name>Shipping.Client.ApplicationServices</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Shipping.Entities\Shipping.Entities.csproj">
+      <Project>{A48FF928-B1D4-4FE6-96D9-66FD566021FB}</Project>
+      <Name>Shipping.Entities</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

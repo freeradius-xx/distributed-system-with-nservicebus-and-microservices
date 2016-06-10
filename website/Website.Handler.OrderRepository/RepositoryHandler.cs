@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using NServiceBus;
+using Shared.Events;
 using Shared.Messages;
 using Shared.ViewModels;
 
@@ -8,10 +9,10 @@ namespace Website.Handler.OrderRepository
     /// <summary>
     /// here we should consider using an event store
     /// </summary>
-    public class RepositoryHandler : 
+    public class RepositoryHandler :
         IHandleMessages<AddNewOrderMessage>,
-        IHandleMessages<OrderAcceptedMessage>,
-        IHandleMessages<OrderShippedMessage>
+        IHandleMessages<OrderAcceptedEvent>,
+        IHandleMessages<OrderShippedEvent>
     {
         #region Fields
 
@@ -42,24 +43,24 @@ namespace Website.Handler.OrderRepository
                 });
         }
 
-        public void Handle(OrderAcceptedMessage message)
+        public void Handle(OrderAcceptedEvent message)
         {
             this._repository.Update(
                 new OrderViewModel
                 {
-                    OrderState = message.OrderState
+                    OrderState = message.State
+                });
+        }
+
+        public void Handle(OrderShippedEvent message)
+        {
+            this._repository.Update(
+                new OrderViewModel
+                {
+                    OrderState = message.State
                 });
         }
 
         #endregion
-
-        public void Handle(OrderShippedMessage message)
-        {
-            this._repository.Update(
-                new OrderViewModel
-                {
-                    OrderState = message.OrderState
-                });
-        }
     }
 }

@@ -42,7 +42,7 @@ namespace Sales.Handler.OrderForwarder
             this._repository.SaveState(
                 new SalesOrderData
                 {
-                    OrderState = message.State,
+                    OrderState = OrderState.AcceptedBySales,
                     OrderId = message.OrderId
                 });
 

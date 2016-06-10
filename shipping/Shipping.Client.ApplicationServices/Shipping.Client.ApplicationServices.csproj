@@ -52,6 +52,14 @@
       <Project>{bcb5c494-40b4-4570-a9d7-b76385930173}</Project>
       <Name>Shared.ViewModels</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Shipping.Entities\Shipping.Entities.csproj">
+      <Project>{a48ff928-b1d4-4fe6-96d9-66fd566021fb}</Project>
+      <Name>Shipping.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Shipping.Repository\Shipping.Repository.csproj">
+      <Project>{3AF84FE7-FCE5-4761-BE2B-BF086A212E3C}</Project>
+      <Name>Shipping.Repository</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

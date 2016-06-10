@@ -7,7 +7,7 @@ namespace Sales.Db
     public class SalesContext : DbContext
     {
         public SalesContext()
-            : base("Name=XxxConnectionString")
+            : base("Name=SalesConnectionString")
         {
             Database.SetInitializer(new Initializer());
         }

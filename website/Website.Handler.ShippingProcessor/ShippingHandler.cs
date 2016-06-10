@@ -45,6 +45,14 @@ namespace Website.Handler.ShippingProcessor
 
         #region Helpers
 
+        private void UpdateOrder(OrderShippedMessage message)
+        {
+            var order = this._repository.GetOrders().ToList().SingleOrDefault(o => o.OrderId == message.OrderId);
+            if (order == null) return;
+            order.OrderState = OrderState.Shipped;
+            this._repository.Update(order);
+        }
+
         private void NotifyClientAboutOrder(Guid orderId)
         {
             var connection = new HubConnection("http://localhost:3333/signalr");
@@ -52,14 +60,6 @@ namespace Website.Handler.ShippingProcessor
             connection.Start().Wait();
 
             hub.Invoke("OrderShipped", orderId).Wait();
-        }
-
-        private void UpdateOrder(OrderShippedMessage message)
-        {
-            var order = this._repository.GetOrders().ToList().SingleOrDefault(o => o.OrderId == message.OrderId);
-            if (order == null) return;
-            order.OrderState = OrderState.Shipped;
-            this._repository.Update(order);
         }
 
         #endregion

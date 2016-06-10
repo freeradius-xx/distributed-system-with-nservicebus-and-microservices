@@ -41,7 +41,7 @@ namespace Shipping.Handler.ShippingProcessor
             this._repository.SaveState(
                 new ShippingOrderData
                 {
-                    OrderState = message.State,
+                    OrderState = OrderState.Shipped,
                     OrderId = message.OrderId
                 });
 

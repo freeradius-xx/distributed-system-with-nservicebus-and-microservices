@@ -15,13 +15,12 @@ namespace Sales.Client.Mvc.Controllers
         {
             var model = new QueryService().GetOrders().ToList();
 
-            if (id.HasValue && model.Any())
+            if (!id.HasValue || !model.Any()) return View(model);
+
+            var exist = model.FirstOrDefault(m => m.OrderId == id);
+            if (exist != null)
             {
-                var exist = model.FirstOrDefault(m => m.OrderId == id);
-                if (exist != null)
-                {
-                    model.Remove(exist);
-                }
+                model.Remove(exist);
             }
 
             return View(model);

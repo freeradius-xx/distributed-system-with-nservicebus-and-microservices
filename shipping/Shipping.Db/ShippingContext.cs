@@ -7,7 +7,7 @@ namespace Shipping.Db
     public class ShippingContext : DbContext
     {
         public ShippingContext()
-            : base("Name=XxxConnectionString")
+            : base("Name=ShippingConnectionString")
         {
             Database.SetInitializer(new Initializer());
         }
