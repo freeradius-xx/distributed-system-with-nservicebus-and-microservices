@@ -12,7 +12,7 @@ Workflow:
 An order (Shop Website => distributed-system-part2) has been placed by a customer, the Sales Department (Sales Website => distributed-system-part3) should be notified about the new order (and to make some checks about it). After the Sales Department accepts (or denies => denying the order is not handled here) the order, it should let the Dispatching Department (Shipping Website => distributed-system-part4) know about it, so it can dispatch the order to the customer's address. And the customer should be notified about the current state of the order too => because she wants to know if and when she gets the product(s) she ordered :-) ...
 
 The focus in this app was on showing how a distributed application works - low coupling between services through event based architecture, message durability, service bus role in a distributed app and usage of NServiceBus.
-Therefore I didn't take care about MVVM (in Crm.Client.Wpf) nor using of some kind of IoC, or unit testing the code. Just for simplicity of this example => sagas have been taken out of this presentation (but there is an example of using sagas with NServiceBus in another repository => nservicebus-sagas.
+Therefore I didn't take care about MVVM (in Crm.Client.Wpf) nor using of some kind of IoC, or unit testing the code.
 
 ---------------------------------------------------
 
@@ -24,7 +24,6 @@ Website (Shipping department)
 Desktop App (CRM)
 
 They are playing together through MSMQ. Events are being published through Microservices, based on Pub/Sub pattern.
-
 To see complete workflow in action you'll need to open every solution and mark some projects as startable:
 
 1) CRM
