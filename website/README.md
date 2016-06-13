@@ -34,13 +34,13 @@ To see complete workflow in action you'll need to open every solution and mark s
   - Sales.Service.Host (SignalR hosting app)
   - Sales.Handler.OrderProcessor (handles order being processed by the client => website)
   - Sales.Handler.OrderForwarder (handles forwarding orders to the dispatcher)
-  - 
+  
 3) Shipping
   - Shipping.Client.Mvc (website)
   - Shipping.Service.Host (SignalR hosting app)
   - Shipping.Handler.OrderProcessor (handles order being processed by the sales department)
   - Shipping.Handler.ShippingProcessor ("dispatches" received orders)
-  - 
+   
 4) WEBSITE
   - Website.Client.Mvc (website)
   - Website.Service.Host (SignalR hosting app)
